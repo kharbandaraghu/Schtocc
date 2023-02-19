@@ -1,0 +1,15 @@
+version: '2.13' # specify docker-compose version
+ 
+# Define the services/ containers to be run
+services:
+  angular: # name of the first service
+    build: ./app-spa # specify the directory of the Dockerfile
+    ports:
+      - "4200:80" # specify port mapping
+  
+  mongo: # name of the database service
+    image: mongo:latest
+    ports:
+      - 27016:27017
+    volumes:
+      - ./mongo:/data/db

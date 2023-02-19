@@ -1,0 +1,5 @@
+<ng-template #rt let-r="result" let-t="term">
+    {{r.symbol}} | {{r.name}}
+  </ng-template>
+  <input (selectItem)="onChange($event)" for="typeahead-template" [(ngModel)]="model" [ngbTypeahead]="search" [resultTemplate]="rt" [inputFormatter]="formatter"/>
+  
