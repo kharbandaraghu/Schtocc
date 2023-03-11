@@ -14,6 +14,16 @@ export class ResearchLinksService {
   private tradingViewUrl = 'https://www.tradingview.com/symbols/';
   private tradingViewChartUrl = 'https://www.tradingview.com/chart/?symbol=';
 
+  openTradingViewLink(ticker: string): void {
+    let tradingViewTicker = ticker;
+    if (ticker.endsWith('.TO')) {
+      const tickerWithoutTo = ticker.substring(0, ticker.length - 3);
+      tradingViewTicker = 'TSX-' + tickerWithoutTo;
+    }
+    tradingViewTicker = tradingViewTicker.replace(/-/g, '.').replace('TSX.', 'TSX:');
+    window.open(this.tradingViewChartUrl + tradingViewTicker, '_blank');
+  }
+
   // Input ticker is in yahoo finance ticker format
   openResearchLinks(ticker: string): void {
 

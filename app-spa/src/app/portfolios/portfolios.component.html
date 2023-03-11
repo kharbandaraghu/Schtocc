@@ -1,0 +1,58 @@
+<!-- heading -->
+<div class="h3 mb-3">Portfolio Manager</div>
+
+
+<div class="row">
+
+    <!-- Add Portfolio -->
+    <div class="col-12 col-md-6 col-lg-3 mb-4">
+        <div class="card">
+            <div class="card-header">
+              <div class="h5">Add Portfolio</div>
+            </div>
+            <div class="card-body">
+                <div class="input-group">
+                    <input [(ngModel)]="portfolioName" type="text" class="form-control" placeholder="Portfolio Name">
+                    <button (click)="AddPortfolio()" class="btn btn-outline-primary" type="button">Add</button>
+                  </div>
+            </div>
+          </div>
+    </div>
+
+    <!-- All Portfolios -->
+    <div class="col-12 mb-4 mb-lg-0">
+        <div class="card">
+            <div class="h5 card-header">Your Portfolios</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Stocks</th>
+                            <th scope="col">Inception Date</th>
+                            <th scope="col">Revisit Date</th>
+                            <th scope="col">Model Portfolio</th>
+                            <th scope="col">Rebalance Period</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let portfolio of allPortfolios; let i = index">
+                            <td>{{portfolio.name}}</td>
+                            <td>{{portfolio.stocks.length}}</td>
+                            <td>{{portfolio.inceptionDate | date: 'dd-MMM-yyyy'}}</td>
+                            <td>{{portfolio.revisitDate  | date: 'dd-MMM-yyyy'}}</td>
+                            <td>{{portfolio.modelPortfolio?'Yes':'No'}}</td>
+                            <td>{{portfolio.rebalancePeriod}}</td>
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm mx-1" [routerLink]="['/portfolios', portfolio._id]"><fa-icon class="mx-2" [icon]="externalLinkIcon"></fa-icon></a>
+                                <a class="btn btn-outline-danger btn-sm mx-1" (click)="DeletePortfolio(portfolio._id)"><fa-icon class="mx-2" [icon]="crossIcon"></fa-icon></a>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

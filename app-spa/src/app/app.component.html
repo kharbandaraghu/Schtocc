@@ -1,23 +1,64 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Schtocc</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<!-- Top navigation -->
+<nav class="navbar navbar-light bg-light p-3">
+  <div class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
+    <a class="navbar-brand">
+      Schtocc
+    </a>
+    <button class="navbar-toggler d-md-none collapsed mb-3" type="button" data-toggle="collapse" data-target="#sidebar"
+      aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/quote">Quote</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/watchlist">Watchlists</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Economic Indicators</a>
-        </li>
-      </ul>
+  </div>
+  <div class="col-12 col-md-9 col-lg-10">
+    <div class="row">
+      <div class="col">
+        <div>
+          <app-quote-search-input (ticker)="onTickerChange($event)"></app-quote-search-input>
+        </div>
+      </div>
+      <div class="col">
+        <button class="btn btn-outline-dark mx-1" (click)="openResearchLinks()">Research</button>
+        <button class="btn btn-outline-dark mx-1" (click)="openTradingViewLink()">Chart</button>
+      </div>
     </div>
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<!-- Dashboard Area -->
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+      <div class="position-sticky pt-md-5">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activatedNavigationPath=='watchlist'}" href="/watchlist">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-layers">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+              <span class="mx-2">Watchlhists</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activatedNavigationPath=='portfolios'}" href="/portfolios">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-bar-chart-2">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              <span class="mx-2">Portfolios</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="offset-lg-2 offset-md-3 col-md-9 col-lg-10 px-md-4 py-4">
+      <router-outlet></router-outlet>
+
+    </div>
+  </div>

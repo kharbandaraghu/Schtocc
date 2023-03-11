@@ -6,6 +6,18 @@ services:
     build: ./app-spa # specify the directory of the Dockerfile
     ports:
       - "4200:80" # specify port mapping
+    # volumes:
+    #   - "/app-spa/node_modules"
+    #   - ".:/app-spa"
+
+  node: # name of the second service
+    build: ./app-server # specify the directory of the Dockerfile
+    ports:
+      - "8080:8080" # specify port mapping
+    depends_on:
+      - mongo # specify the dependency of the service
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/Schtocc-PROD # specify the environment variable
   
   mongo: # name of the database service
     image: mongo:latest

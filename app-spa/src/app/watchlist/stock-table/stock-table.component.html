@@ -1,1 +1,52 @@
-<p>stock-table works!</p>
+<div class="card">
+  <div class="card-header">
+    <div class="h5">
+      {{selectedWatchlist?.name}}
+    </div>
+  </div>
+  <div class="card-body">
+    <!-- Stock Table -->
+    <div class="row">
+      <div class="col-12">
+        <!-- bootstrap table -->
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Symbol</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Rationale to Add</th>
+              <th scope="col">Change %</th>
+              <th scope="col">Volume</th>
+              <th scope="col">Market Cap</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let stock of stockDetails">
+              <td>{{stock.symbol}}</td>
+              <td>{{stock.longName}}</td>
+              <td>{{stock.currency}}$ {{stock.regularMarketPrice}}</td>
+              <td>{{stock.notes}}</td>
+              <td>{{stock.regularMarketChange | number: '1.0-2'}}%</td>
+              <td>{{stock.regularMarketVolume | bigNumberPipe}}</td>
+              <td>{{stock.marketCap | bigNumberPipe}}</td>
+              <td>
+                <a class="btn btn-outline-primary btn-sm mx-1" (click)="openTradingViewLink(stock.symbol)">
+                  <fa-icon class="mx-2" [icon]="lineChartIcon"></fa-icon>
+                </a>
+                <a class="btn btn-outline-primary btn-sm mx-1" (click)="openStockResearchLink(stock.symbol)">
+                  <fa-icon class="mx-2" [icon]="externalLinkIcon"></fa-icon>
+                </a>
+                <a class="btn btn-outline-danger btn-sm mx-1" (click)="deleteStockFromWatchlist(stock.symbol)">
+                  <fa-icon class="mx-2" [icon]="crossIcon"></fa-icon>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.watchlist-select
+    display: flex
+    align-items: center
+
+    .watchlist-name
+        display: flex
+        cursor: pointer
+        justify-content: center
+        flex: 1
+
+    
+    // this is for the delete button. to the right of flex box
+    .watchlist-delete
+        position: relative
+        cursor: pointer
+        color: #ccc
+        display: flex
+        align-items: center
+        &:hover
+            color: #f12828
+
+    .watchlist-checkbox
+        position: relative
+    
+
+    &:hover
+        background-color: #eee
+
+.watchlist-selected
+    background-color: #ccc

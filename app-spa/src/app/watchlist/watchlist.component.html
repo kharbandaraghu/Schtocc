@@ -1,1 +1,74 @@
-<app-add-stock></app-add-stock>
+<!-- heading -->
+
+<div class="h3 mb-3">Your Watchlists</div>
+
+
+<div class="row">
+
+  <!-- Watchlist list -->
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-header">
+        <div class="h5">Your Watchlists</div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let list of watchlists" class="list-group-item watchlist-select"
+          [ngClass]="{'watchlist-selected': list._id == selectedWatchlistId}">
+          <div class="watchlist-checkbox">
+            <input type="checkbox" class="form-check-input" [checked]="list.checked"
+              (change)="list.checked = list.checked === undefined ? true : !list.checked">
+          </div>
+          <div class="watchlist-name" (click)="onWatchlistClick(list)">{{list.name}}</div>
+          <a class="watchlist-delete">
+            <fa-icon [icon]="crossIcon" (click)="deleteWatchlist(list._id)"></fa-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Add Stock -->
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-header">
+        <div class="h5">Add Stock</div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 mb-3">
+            <app-quote-search-input (ticker)="onTickerChange($event)"></app-quote-search-input>
+          </div>
+          <div class="col-12"> <input class="form-control" [(ngModel)]="rationaleToAdd"
+              placeholder="Rationale for adding stock"></div>
+        </div>
+      </div>
+      <div class="card-footer"><button class="btn btn-block btn-primary" (click)="addStocksToWatchlist()">Add
+          stock</button></div>
+    </div>
+  </div>
+
+  <!-- Add Watchlist -->
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-header">
+        <div class="h5">Create New Watchlist</div>
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input [(ngModel)]="newWatchlist.name" type="text" class="form-control" placeholder="Watchlist Name">
+          <button (click)="addNewWatchlist()" class="btn btn-outline-primary" type="button">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Stock table -->
+  <div class="col-md-12">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

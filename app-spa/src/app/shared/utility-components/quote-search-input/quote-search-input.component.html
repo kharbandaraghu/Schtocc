@@ -1,5 +1,12 @@
 <ng-template #rt let-r="result" let-t="term">
-    {{r.symbol}} | {{r.name}}
-  </ng-template>
-  <input (selectItem)="onChange($event)" for="typeahead-template" [(ngModel)]="model" [ngbTypeahead]="search" [resultTemplate]="rt" [inputFormatter]="formatter"/>
+  <div class="row">
+    <div class="col-3">{{r.symbol}}</div>
+    <div class="col-9">{{r.name}}</div>
+    <div class="col-12 form-control-sm">{{r.exchange}}</div>
+  </div>
+</ng-template>
   
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">﹩</span>
+  <input type="text" class="form-control" placeholder="Search a Symbol" (selectItem)="onChange($event)" for="typeahead-template" [(ngModel)]="model" [ngbTypeahead]="search" [resultTemplate]="rt" [inputFormatter]="formatter"/>
+</div>

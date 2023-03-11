@@ -1,0 +1,5 @@
+- There should be a place to add note in watchlist stock
+- There should be a revisit date on watchlist stock
+- Ability to edit watchlit name
+- Ability to add existing stock to another watchlist ?
+- Show sector in stock table in watchlist

@@ -1,0 +1,160 @@
+<!-- Heading -->
+<div class="h3 mb-3">
+  <a routerLink="..">
+    <fa-icon [icon]="backIcon"></fa-icon>
+  </a> <span class="mx-4">{{portfolio.name}} - Portfolio Details</span>
+</div>
+
+
+<div class="row">
+
+
+  <!-- Portfolio Details -->
+  <div class="col-12 col-md-6 col-lg-4 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <div class="h5">Your Portfolio</div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+
+          <div class="col-3 my-2">
+            <div class="h6">Name</div>
+            <input [(ngModel)]="portfolio.name" class="editable-input form-control" (ngModelChange)="toggleSave=true">
+          </div>
+
+          <div class="col-3 my-2">
+            <div class="h6">Inception Date</div>
+            <div class="row">
+              <div class="col-2">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              </div>
+              <div class="col-10"><input matInput [matDatepicker]="picker" [(ngModel)]="portfolio.inceptionDate"
+                  class="editable-input form-control" (ngModelChange)="toggleSave=true"></div>
+            </div>
+          </div>
+
+          <div class="col-3 my-2">
+            <div class="h6">Revisit Date</div>
+            <div class="row">
+              <div class="col-2">
+                <mat-datepicker-toggle matIconSuffix [for]="tpicker"></mat-datepicker-toggle>
+              </div>
+              <div class="col-10"><input matInput [matDatepicker]="tpicker" [(ngModel)]="portfolio.revisitDate"
+                  class="editable-input form-control" (ngModelChange)="toggleSave=true"></div>
+            </div>
+          </div>
+
+          <div class="col-3 my-2">
+            <div class="h6">Rebalance Period</div>
+            <input [(ngModel)]="portfolio.rebalancePeriod" class="editable-input form-control"
+              (ngModelChange)="toggleSave=true">
+          </div>
+
+          <div class="col-3 my-2">
+            <div class="h6">Model Portfolio</div>
+            <input class="form-check-input" type="checkbox" [(ngModel)]="portfolio.modelPortfolio"
+              (ngModelChange)="toggleSave=true">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-6">
+            <a class="btn btn-outline-primary btn-block" [ngClass]="{'disabled': !toggleSave}"
+              (click)="SavePortfolio()">
+              <fa-icon class="mx-2" [icon]="saveIcon"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Add Stock -->
+  <div class="col-12 col-md-6 col-lg-4 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <div class="h5">Add Stock</div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <app-quote-search-input (ticker)="onStockSelect($event)"></app-quote-search-input>
+          </div>
+          <div class="col-4"><button class="btn btn-block btn-primary" (click)="addStock()">Add stock</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- All Portfolios -->
+  <div class="col-12 mb-4 mb-lg-0">
+    <div class="card">
+      <div class="h5 card-header">Your Stocks</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Ticker</th>
+                <th scope="col">Name</th>
+                <th scope="col">Purchase Price</th>
+                <th scope="col">Units</th>
+                <th scope="col">Excahange</th>
+                <th scope="col">Target Allocation</th>
+                <th scope="col">Current Allocation</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let stock of portfolio.stocks; let i = index">
+                <td>{{stock.ticker}}</td>
+                <td>{{stock.name}}</td>
+                <td><input type="number" [(ngModel)]="stock.purchasePrice" class="editable-input form-control"
+                    (ngModelChange)="stock.updated= true"></td>
+                <td><input type="number" [(ngModel)]="stock.unitsHeld" class="editable-input form-control"
+                    (ngModelChange)="stock.updated= true"></td>
+                <td>{{stock.exchange}}</td>
+                <td><input type="number" [(ngModel)]="stock.targetAllocation" class="editable-input form-control"
+                    (ngModelChange)="stock.updated= true"></td>
+                <td>{{stock.currentAllocation}}</td>
+                <td>
+                  <a class="btn btn-outline-primary btn-sm mx-1" [ngClass]="{'disabled': !stock.updated}"
+                    (click)="updateStock(stock)">
+                    <fa-icon class="mx-2" [icon]="saveIcon"></fa-icon>
+                  </a>
+                  <a class="btn btn-outline-danger btn-sm mx-1" (click)="deleteStock(stock._id)">
+                    <fa-icon class="mx-2" [icon]="crossIcon"></fa-icon>
+                  </a>
+                </td>
+              </tr>
+              <!-- table row for sum of target allocation -->
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>Total</strong></td>
+                <td><strong>{{portfolio.stocks | targetAllocationPipe}}</strong></td>
+                <td></td>
+                <td></td>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary" (click)="visualizePortfolio()">Portfolio Visualizer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Date Pickers -->
+<mat-datepicker #picker></mat-datepicker>
+<mat-datepicker #tpicker></mat-datepicker>

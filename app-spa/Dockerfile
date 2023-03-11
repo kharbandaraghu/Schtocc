@@ -19,10 +19,8 @@ RUN npm run build
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image as the base image
-FROM nginx:latest
+FROM nginx:1.17.1-alpine
 
 # Copy the build output to replace the default nginx contents.
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /usr/local/app/public /usr/share/nginx/html
-
-# Expose port 80
-EXPOSE 80
